@@ -28,79 +28,17 @@ class HomeController extends Controller {
     }
 
     /**
-     * SignIn
+     * Giveaway
      * --------------------------------------------
-     * Display the signin page
-     * --------------------------------------------
-     * @param req express request
-     * @param res express Response
-     * @param next express NextFunction
-     */
-    public SignIn = (req: Request, res: Response, next: NextFunction): void => {
-        return res._render.html('frontend/signin', {
-            pageTitle: this.pageTitle(res.__('auth.signin')),
-            pageMeta: {}
-        });
-    }
-
-    /**
-     * Register
-     * --------------------------------------------
-     * Display the register page
+     * Scrape the social media based on the app type
      * --------------------------------------------
      * @param req express request
      * @param res express Response
      * @param next express NextFunction
      */
-    public Register = (req: Request, res: Response, next: NextFunction): void => {
-        return res._render.html('frontend/register', {
-            pageTitle: this.pageTitle(res.__('auth.register')),
-            pageMeta: {}
-        });
-    }
-
-    /**
-     * Forgot Password
-     * --------------------------------------------
-     * Display the forgot password page
-     * --------------------------------------------
-     * @param req express request
-     * @param res express Response
-     * @param next express NextFunction
-     */
-    public ForgotPassword = (req: Request, res: Response, next: NextFunction): void => {
-        return res._render.html('frontend/forgot', {
-            pageTitle: this.pageTitle(res.__('auth.forgot_password')),
-            pageMeta: {}
-        });
-    }
-
-    /**
-     * Flash Message
-     * --------------------------------------------
-     * Display the flash page
-     * --------------------------------------------
-     * @param req express request
-     * @param res express Response
-     * @param next express NextFunction
-     */
-    public FlashMessage = (req: Request, res: Response, next: NextFunction): void => {
-        const paramAction = req.params.action.replace(/-/g, '_');
-        const options: any = {};
-        if (req.params.action == 'register-success' || req.params.action == 'forgot-password-success') {
-            options.emailAddress = req.query.email;
-        }
-
-        return res._render.html('frontend/flash', {
-            pageTitle: this.pageTitle(res.__(`flash.${paramAction}.title`)),
-            pageMeta: {
-                robots: "noindex,nofollow"
-            },
-            flash: {
-                title: res.__(`flash.${paramAction}.title`),
-                description: res.__(`flash.${paramAction}.description`, options),
-                image: res.__(`flash.${paramAction}.image`)
-            }
+    public Giveaway = (req: Request, res: Response, next: NextFunction): void => {
+        return res._render.ajax({
+            winner: []
         });
     }
 }
