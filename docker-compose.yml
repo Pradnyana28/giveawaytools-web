@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  mongo:
+    container_name: garasi-mongo
+    image: mongo
+    restart: always
+    env_file:
+      - ./.env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_INIT_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_INIT_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+      - MONGO_INITDB_USERNAME=${MONGO_INITDB_USERNAME}
+      - MONGO_INITDB_PASSWORD=${MONGO_INITDB_PASSWORD}
+    ports:
+      - 27017:27017
+    volumes:
+      - ./shells/init-mongodb.sh:/docker-entrypoint-initdb.d/init-mongodb.sh:ro
+      - dafis-mongodb:/data/db
+
+  web:
+    container_name: garasi-server
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    ports:
+      - 5000:5000
+    env_file:
+      - ./.env
+    depends_on:
+      - mongo
+    environment:
+      - NODE_ENV=development
+
+volumes:
+  dafis-mongodb:

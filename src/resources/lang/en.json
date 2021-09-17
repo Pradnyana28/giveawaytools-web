@@ -1,0 +1,123 @@
+{
+  "auth": {
+    "already_have_account": "Already have an account",
+    "create_new_account": "Create new account",
+    "create_new_password": "Create New Password",
+    "create_new_password_subtitle": "Create new password for your new account",
+    "dont_have_account": "Doesn't have an account",
+    "email": "Email address",
+    "firstName": "First Name",
+    "forgot_password": "Forgot Password",
+    "lastName": "Last Name",
+    "logged_in": "Hi, {{ initial }}",
+    "name": "Name",
+    "password": "Password",
+    "register": "Register",
+    "register_title": "Register Now.<br />Get First Month Free Trial",
+    "register_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br /> tempor incididunt ut labore et dolore magna aliqua.",
+    "remember": "Remember Me",
+    "reset_now": "Reset Now",
+    "reset_password": "Reset Password",
+    "reset_password_description": "Use password that you used<br />when register",
+    "subtitle": "Use username/email dan password that you used<br />when register",
+    "term_condition": "By clickin the login button, then you agree<br />with the <a href='{{ termLink }}' class='{{ className }}' target='_blank'>Term and Conditions</a> on our site.",
+    "signin": "Signin",
+    "update_password": "Update Password",
+    "username_email": "Username / Email Address"
+  },
+
+  "copyright": "Licensed MIT. Feel free to use it in your project.",
+
+  "email": {
+    "registration_complete": {
+      "paragraph_1": "Welcome to <b class='color-primary'>{{ title }}</b> and congratulations!",
+      "paragraph_2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "paragraph_3": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    },
+    "registration_confirmation": {
+      "paragraph_1": "Thank you for joining with us",
+      "paragraph_2": "Please use the link below to confirm your email address"
+    },
+    "reset_password": {
+      "paragraph_1": "We have received your reset password request",
+      "paragraph_2": "Please use the link below to reset your password"
+    }
+  },
+
+  "flash": {
+    "verification_success": {
+      "title": "Verification Success",
+      "image": "",
+      "description": "Your email is verified. Thank you for your attention."
+    },
+    "verification_failed": {
+      "title": "Verfication Failed",
+      "image": "",
+      "description": "We are sorry, the verification link you used is not valid."
+    },
+    "register_success": {
+      "title": "Verification Mail is Sent",
+      "image": "/resources/images/verification-email.png",
+      "description": "We have sent the email verification to<br /><b>{{ emailAddress }}</b>"
+    },
+    "forgot_password_success": {
+      "title": "Email Reset Password is Sent",
+      "image": "/resources/images/verification-email.png",
+      "description": "We have sent the reset password mail to<br /><b>{{ emailAddress }}</b>"
+    },
+    "reset_password_success": {
+      "title": "New Password is Saved",
+      "image": "",
+      "description": "Your new password is change. Please use the new password to login to our system.<br /><a href='/auth/signin' class='text-secondary font-bold'>Signin Now</a>"
+    }
+  },
+
+  "footer": {
+    "copyright": "Licensed MIT. Feel free to use it in your project.",
+    "made_with_love": "Made with <3 by Prathnan Design"
+  },
+
+  "home": "Home",
+
+  "hero": {
+    "hero_title": "Dafis<br /> Node.js Boilerplate",
+    "hero_description": "Thank you for considering using my boilerplate. If you have any thought about this project<br /> please feel free to hit me on twitter.",
+    "subtitle": "Don't forget to star this project on Github and of course I'm open for Pull Request. But before it, please <a href='{{ documentationLink }}' class='text-secondary'>Read The Docs</a>!",
+    "button_label": "Go To Github.com"
+  },
+
+  "input": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email Address",
+    "password": "Password",
+    "username": "Username / Email Address"
+  },
+
+  "internal_server_error": "Internal Server Error",
+  "internal_server_error_information": "We are having trouble in our system. Please try in another moment. Thank you.",
+  "invalid_request": "Invalid Request",
+  "invalid_request_information": "It looks like you have something missing. Please try again.",
+
+  "navigation": {
+    "about": "About Us",
+    "blog": "Blogs",
+    "login_or_register": "Login / Register"
+  },
+
+  "or": "Or",
+  "page_not_found": "Page Not Found",
+  "page_not_found_information": "The link you are followed seems to be broken or has been moved or never exist.",
+  "read_more": "Learn more",
+
+  "validation": {
+    "credentials_invalid": "Username or password is not valid",
+    "email_already_registered": "Email already registered",
+    "email_not_registered": "Email is not registered in our system",
+    "password_minimum": "Password must be more than 8 characters",
+    "required": "Field {{ field }} is required",
+    "reset_password_invalid": "Reset password is failed"
+  },
+
+  "view_all": "View All"
+}
