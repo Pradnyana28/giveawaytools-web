@@ -17,5 +17,7 @@ export default {
     // admin
     apanel: {
         dashbord: '/apanel/dashboard',
-    }
+    },
+
+    giveaway: 'giveaway/:app'
 };
