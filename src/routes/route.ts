@@ -19,5 +19,5 @@ export default {
         dashbord: '/apanel/dashboard',
     },
 
-    giveaway: 'giveaway/:app'
+    giveaway: '/giveaway/:app'
 };

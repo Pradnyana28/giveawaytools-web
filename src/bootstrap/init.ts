@@ -29,10 +29,9 @@ export default async (app: Application): Promise<Application> => {
         await mongoose.connect(app.get('dburi'));
         if (app.get('env') != 'testing') {
             console.log(
-                '%s %s Connected to DB: %s',
+                '%s %s Connected to DB',
                 chalk.green('✓'),
-                chalk.blueBright('INIT'),
-                app.get('dburi')
+                chalk.blueBright('INIT')
             );
         }
     } catch (err) {

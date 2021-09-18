@@ -6,8 +6,8 @@ import Logger, { ILogger } from './logger';
  * -----------------------------------------
  */
 export interface IResponser {
-    isSuccess();
-    isFail();
+    isSuccess(): this;
+    isFail(): this;
     setErrors(errors: string[]);
 
     ajax(data?: any, redirect?: string, statusCode?: number);

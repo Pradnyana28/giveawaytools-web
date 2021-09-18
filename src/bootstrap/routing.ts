@@ -68,14 +68,18 @@ class Routing {
         app.use(compression());
         app.use(express.static('public', { maxAge: '36000' }));
 
-        if (app.get('env') != 'testing') {
-            app.use(csrf({ cookie: true }));
-        }
+        app.use((req, res, next) => {
+            if (app.get('env') != 'testing' && !req.api) {
+                csrf({ cookie: true })(req, res, next);
+            } else {
+                next();
+            }
+        });
 
         app.use(passport.initialize());
         app.use(passport.session());
         app.use(async (req: Request, res: Response, next: NextFunction) => {
-            if (app.get('env') != 'testing') {
+            if (app.get('env') != 'testing' && !req.api) {
                 app.locals.csrfToken = req.csrfToken();
             }
 

@@ -1,6 +1,21 @@
 import { Request, Response, NextFunction } from 'express';
 
 import Controller from '@controllers/Controller';
+import Stats from '@app/Models/Stats';
+import browser from '@utils/browser';
+import SocMedService from '@app/Services/SocMedService';
+import Instagram from '@app/Services/Instagram';
+import { IComment, ILike } from '@app/Services/Instagram.interface';
+import { chooseWinners, countTaggedPeople } from '@utils/common';
+
+interface IGiveawayBody {
+    ownerName: string;
+    ownerEmail: string;
+    giveawayName: string;
+    postShortcode: string;
+    validTaggedPeople: string;
+    numberOfWinner: string;
+}
 
 class HomeController extends Controller {
     constructor() {
@@ -36,9 +51,69 @@ class HomeController extends Controller {
      * @param res express Response
      * @param next express NextFunction
      */
-    public Giveaway = (req: Request, res: Response, next: NextFunction): void => {
+    public Giveaway = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        const data: IGiveawayBody = req.body;
+        const app: string = req.params.app;
+
+        this.logger.info('Start processing giveaway winners', { app, data }, __filename);
+
+        // Save the giveaway information
+        Stats.saveStats({
+            ...data,
+            numberOfTaggedPeople: Number(data.validTaggedPeople),
+            respectedWinner: Number(data.numberOfWinner)
+        });
+
+        // Init browser
+        const browserInstance = await browser();
+        if (!browserInstance) {
+            return res._render.isFail().json(null);
+        }
+
+        let classInjector = null;
+        if (app === 'instagram') {
+            classInjector = new Instagram({
+                browser: browserInstance,
+                is2faEnabled: false,
+                tenantName: data.giveawayName
+            });
+        }
+        const session = new SocMedService(classInjector);
+        await session.boot();
+
+        // Collecting likes
+        const likes = await session.getPostLikes(data.postShortcode);
+        const allLikes = likes.reduce((prev, next) => prev.concat(next.data), []) as ILike[];
+
+        if (!allLikes.length) {
+            return res._render.setErrors(['Opps! No likes! We can\'t decide it yet.']);
+        }
+
+        // Collecting comments
+        const comments = await session.getPostComments(data.postShortcode);
+        const allComments = comments.reduce((prev, next) => prev.concat(next.data), []) as IComment[];
+
+        if (!allComments.length) {
+            return res._render.setErrors(['Oops, no comments yet!']);
+        }
+
+        // get the comment stext
+        const onlyValidComments = allComments.filter((comment) => countTaggedPeople(comment.text, Number(data.validTaggedPeople)));
+
+        if (!onlyValidComments.length) {
+            return res._render.setErrors(['Oops! Seems like we haven\'t found the winner yet.']);
+        }
+
+        const validUserWithCommentLike = onlyValidComments.filter((comment) => allLikes.some((like) => like.username === comment.owner.username));
+
+        if (!validUserWithCommentLike.length) {
+            return res._render.setErrors(['Oops! Seems no one followed the rules.']);
+        }
+
+        const theWinners = chooseWinners(validUserWithCommentLike, Number(data.numberOfWinner));
+
         return res._render.ajax({
-            winner: []
+            winner: theWinners
         });
     }
 }
